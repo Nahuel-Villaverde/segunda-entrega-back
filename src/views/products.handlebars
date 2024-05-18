@@ -1,0 +1,31 @@
+{{#if products.length}}
+<div>
+    {{#each products}}
+    <div>
+        <h3>{{this.titulo}}</h3>
+        <ul>
+            <li>Descripción: {{this.descripcion}} </li>
+            <li>Precio: {{this.precio}} </li>
+            <li>Categoria: {{this.categoria}} </li>
+            <li>Stock: {{this.stock}} </li>
+            <li>Disponible: {{this.disponible}} </li>
+        </ul>
+    </div>
+    <br />
+    {{/each}}
+</div>
+<br />
+<div>
+    {{#if prevLink}}
+    <a href="{{prevLink}}"><< Anterior</a>
+    {{/if}}
+    &nbsp;
+    Página: {{page}}
+    &nbsp;
+    {{#if nextLink}}
+    <a href="{{nextLink}}">Siguiente >></a>
+    {{/if}}
+</div>
+{{else}}
+<h1>No hay productos para mostrar</h1>
+{{/if}}
