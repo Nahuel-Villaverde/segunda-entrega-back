@@ -10,17 +10,13 @@ router.get('/', async (req, res) => {
     let sort = req.query.sort;
     let disponible = req.query.disponible;
 
-    console.log(`Limite establecido: ${limit}`);
-    console.log(`Parámetro de ordenamiento recibido: ${sort}`);
-    console.log(`Parámetro de disponibilidad recibido: ${disponible}`);
-
     try {
         let filtro = {};
         if (categoria) {
             filtro.categoria = categoria;
         }
         if (disponible !== undefined) {
-            filtro.disponible = disponible === 'true'; // Convertir a booleano
+            filtro.disponible = disponible === 'true';
         }
 
         let ordenamiento = {};
@@ -30,15 +26,12 @@ router.get('/', async (req, res) => {
             ordenamiento.precio = -1;
         }
 
-        console.log('Objeto de ordenamiento:', ordenamiento);
-        console.log('Filtro:', filtro);
-
         const result = await productModel.paginate(filtro, { page, limit, lean: true, sort: ordenamiento });
 
         const prevLink = result.hasPrevPage ? `/api/products?page=${result.prevPage}&limit=${limit}&categoria=${categoria || ''}&sort=${sort || ''}${disponible !== undefined ? `&disponible=${disponible}` : ''}` : null;
         const nextLink = result.hasNextPage ? `/api/products?page=${result.nextPage}&limit=${limit}&categoria=${categoria || ''}&sort=${sort || ''}${disponible !== undefined ? `&disponible=${disponible}` : ''}` : null;
 
-        console.log('Resultados:', {
+        res.json({
             status: 'success',
             payload: result.docs,
             totalPages: result.totalPages,
@@ -50,11 +43,9 @@ router.get('/', async (req, res) => {
             prevLink: prevLink,
             nextLink: nextLink
         });
-
-        res.render('products', { products: result.docs, page, limit, prevLink, nextLink, categoria, sort, disponible });
     } catch (error) {
         console.error('Error al obtener los productos:', error);
-        res.status(500).render('error', { error: 'Error al obtener los productos' });
+        res.status(500).json({ status: 'error', error: 'Error al obtener los productos' });
     }
 });
 

@@ -2,7 +2,7 @@
 <div>
     {{#each products}}
     <div>
-        <h3>{{this.titulo}}</h3>
+        <h3><a href="/products/{{this._id}}">{{this.titulo}}</a></h3>
         <ul>
             <li>Descripción: {{this.descripcion}} </li>
             <li>Precio: {{this.precio}} </li>
