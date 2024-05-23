@@ -12,6 +12,15 @@
             <li>Disponible: {{product.disponible}}</li>
         </ul>
     </div>
+    <form action="/api/carts/{{cartId}}/product/{{product._id}}" method="POST">
+        <button type="submit" onclick="showAlert()">Agregar al carrito</button>
+    </form>
     <br />
     <a href="/products">Volver a la lista de productos</a>
 </div>
+
+<script>
+    function showAlert() {
+    alert("¡Producto agregado al carrito!");
+}
+</script>

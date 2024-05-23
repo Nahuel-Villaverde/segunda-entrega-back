@@ -1,5 +1,6 @@
 {{#if products.length}}
 <div>
+    <a href="/carts/{{cartId}}" class="btn">Ver Carrito</a>
     {{#each products}}
     <div>
         <h3><a href="/products/{{this._id}}">{{this.titulo}}</a></h3>
@@ -10,6 +11,9 @@
             <li>Stock: {{this.stock}} </li>
             <li>Disponible: {{this.disponible}} </li>
         </ul>
+        <form id="addToCartForm_{{this._id}}" class="addToCartForm" action="/api/carts/{{../cartId}}/product/{{this._id}}" method="POST">
+            <button type="submit" onclick="showAlert()">Agregar al carrito</button>
+        </form>
     </div>
     <br />
     {{/each}}
@@ -29,3 +33,9 @@
 {{else}}
 <h1>No hay productos para mostrar</h1>
 {{/if}}
+
+<script>
+    function showAlert() {
+    alert("¡Producto agregado al carrito!");
+}
+</script>

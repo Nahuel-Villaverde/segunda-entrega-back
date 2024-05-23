@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import productModel from '../../dao/models/product.model.js';
+const HARDCODED_CART_ID = '664796896b11e830d303ac64';
 
 const viewRouter = Router();
 
@@ -51,7 +52,7 @@ viewRouter.get('/', async (req, res) => {
             nextLink: nextLink
         });
 
-        res.render('products', { products: result.docs, page, limit, prevLink, nextLink, categoria, sort, disponible });
+        res.render('products', { products: result.docs, page, limit, prevLink, nextLink, categoria, sort, disponible, cartId: HARDCODED_CART_ID });
     } catch (error) {
         console.error('Error al obtener los productos:', error);
         res.status(500).render('error', { error: 'Error al obtener los productos' });
@@ -67,7 +68,7 @@ viewRouter.get('/:id', async (req, res) => {
             return res.status(404).render('error', { message: "Producto no encontrado" });
         }
 
-        res.render('detailProducts', { product });
+        res.render('detailProducts', { product, cartId: HARDCODED_CART_ID});
     } catch (error) {
         console.error(error);
         res.status(500).render('error', { message: "Error al obtener el producto" });

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import cartModel from '../../dao/models/cart.model.js';
 import productModel from '../../dao/models/product.model.js';
+const HARDCODED_CART_ID = '664796896b11e830d303ac64';
 
 const router = Router();
 
@@ -38,7 +39,7 @@ router.get('/:cid', async (req, res) => {
 });
 
 router.post('/:cid/product/:pid', async (req, res) => {
-    const cartId = req.params.cid;
+    const cartId = req.params.cid || HARDCODED_CART_ID;
     const productId = req.params.pid;
 
     try {
