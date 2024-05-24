@@ -2,13 +2,17 @@ import express from 'express'
 import mongoose from 'mongoose'
 import __dirname from './utils.js'
 import handlebars from 'express-handlebars'
+import dotenv from 'dotenv'
 import cartApiRouter from './routes/api/carts.router.js'
 import productApiRouter from './routes/api/products.router.js'
 import viewRouterProduct from './routes/views/products.view.router.js'
 import viewRouterCart from './routes/views/carts.view.router.js'
 
+dotenv.config();
+
 const app = express()
-const PORT = 8080
+const PORT = process.env.PORT || 8080;
+const MONGO_URL = process.env.MONGO_URL;
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -18,7 +22,7 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
 app.use(express.static(__dirname + '/public'))
 
-mongoose.connect("mongodb+srv://nahuel:12345@cluster0.n6uawfv.mongodb.net/segundaEntrega?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(MONGO_URL)
 .then(() => { console.log("Conectado a la base de datos") })
 .catch(error => console.error("Error en la conexion", error))
 
