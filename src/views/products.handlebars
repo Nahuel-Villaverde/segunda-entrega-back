@@ -11,7 +11,7 @@
             <li>Stock: {{this.stock}} </li>
             <li>Disponible: {{this.disponible}} </li>
         </ul>
-        <form id="addToCartForm_{{this._id}}" class="addToCartForm" action="/api/carts/{{../cartId}}/product/{{this._id}}" method="POST">
+        <form id="addToCartForm_{{this._id}}" class="addToCartForm" action="/carts/{{../cartId}}/product/{{this._id}}" method="POST">
             <button type="submit" onclick="showAlert()">Agregar al carrito</button>
         </form>
     </div>
