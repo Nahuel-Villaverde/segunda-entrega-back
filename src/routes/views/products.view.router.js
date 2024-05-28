@@ -21,7 +21,7 @@ viewRouter.get('/', async (req, res) => {
             filtro.categoria = categoria;
         }
         if (disponible !== undefined) {
-            filtro.disponible = disponible === 'true'; // Convertir a booleano
+            filtro.disponible = disponible === 'true';
         }
 
         let ordenamiento = {};
